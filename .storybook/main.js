@@ -1,4 +1,5 @@
-const util = require('util')
+const util = require('util');
+const path = require('path');
 
 module.exports = {
   presets: ['@storybook/addon-docs/preset'],
@@ -14,7 +15,19 @@ module.exports = {
       babelLoader.options.presets = babelLoader.options.presets.filter(preset => !preset.includes('babel-preset-vue'))
     })
 
-    console.log(util.inspect(config.module.rules, false, null, true))
+    config.module.rules.push({
+        test: /\.(mjs|jsx?)$/,
+        use: [{
+            loader: 'babel-loader',
+            options: {
+            cacheDirectory: path.resolve(__dirname, '../node_modules/.cache/storybook'),
+            presets: ['@vue/app'],
+            babelrc: false
+            }
+        }],
+        exclude: [path.resolve(__dirname, '../node_modules')]
+    });
+
     return config
   }
 }
