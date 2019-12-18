@@ -1,12 +1,18 @@
 import { Meta, Preview, Story } from '@storybook/addon-docs/blocks'
 import HelloWorld from './HelloWorld.react'
 
-<Meta title="HelloWorld Docs" component={HelloWorld} />
+import { SomeStory } from './HelloWorldStories.js';
+
+<Meta title="HelloWorld" component={HelloWorld} />
 
 # HelloWorld Docs
 
 Some MDX docs for the `HelloWorld` component.
 
+### This is using a `toReact` vue component in a preview.
 <Preview>
     <HelloWorld msg="HelloWorld Docs" />
 </Preview>
+
+### This is returning an imported story from a arrow function in a story block (could do inline if the file doesn't have jsx)
+<Story name="SomeStory">{() => SomeStory}</Story>
